@@ -1,0 +1,51 @@
+sudo: false
+
+language: node_js
+
+cache:
+  directories: ~/.npm
+
+notifications:
+  email: false
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=14c91e47bcb1f819432e908220082ec64377e1797e2b14e463903f91ea8811f4
+
+node_js:
+  - 11
+  - 10
+  - 9
+  - 8
+
+install:
+  - travis_retry npm install
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - node --version
+  - npm --version
+  - npm test
+
+after_script:
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+after_success:
+  - npm run report-coverage
+
+jobs:
+  include:
+    - stage: release
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npm install -g semantic-release && semantic-release
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
