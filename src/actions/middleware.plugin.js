@@ -3,7 +3,7 @@ import middleware from './middleware';
 const files = require.context(
     '@/<%= options.dir %>',
     false,
-    /^\.\/(?!<%= options.ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u
+    /\.(<%= extensions %>)$/u
 );
 const filenames = files.keys();
 
