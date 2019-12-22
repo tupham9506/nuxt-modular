@@ -1,32 +1,11 @@
 # Nuxt Modular
-
-[![NPM Version](https://img.shields.io/npm/v/@cknow/nuxt-modular.svg)](https://www.npmjs.com/package/@cknow/nuxt-modular)
-[![Downloads](https://img.shields.io/npm/dt/@cknow/nuxt-modular.svg)](https://www.npmjs.com/package/@cknow/nuxt-modular)
-[![MIT License](https://img.shields.io/npm/l/@cknow/nuxt-modular.svg)](LICENSE)
-
-[![Build Status](https://travis-ci.org/cknow/nuxt-modular.svg?branch=master)](https://travis-ci.org/cknow/nuxt-modular)
-[![Build status](https://ci.appveyor.com/api/projects/status/o2g6m42r70vdltlq/branch/master?svg=true)](https://ci.appveyor.com/project/cknow/nuxt-modular/branch/master)
-[![Coverage Status](https://coveralls.io/repos/github/cknow/nuxt-modular/badge.svg?branch=master)](https://coveralls.io/github/cknow/nuxt-modular?branch=master)
-
-[![Code Climate](https://codeclimate.com/github/cknow/nuxt-modular/badges/gpa.svg)](https://codeclimate.com/github/cknow/nuxt-modular)
-[![Test Coverage](https://codeclimate.com/github/cknow/nuxt-modular/badges/coverage.svg)](https://codeclimate.com/github/cknow/nuxt-modular/coverage)
-[![Issue Count](https://codeclimate.com/github/cknow/nuxt-modular/badges/issue_count.svg)](https://codeclimate.com/github/cknow/nuxt-modular)
-
-[![Dependencies Status](https://david-dm.org/cknow/nuxt-modular/status.svg)](https://david-dm.org/cknow/nuxt-modular)
-[![devDependencies Status](https://david-dm.org/cknow/nuxt-modular/dev-status.svg)](https://david-dm.org/cknow/nuxt-modular?type=dev)
-[![peerDependencies Status](https://david-dm.org/cknow/nuxt-modular/peer-status.svg)](https://david-dm.org/cknow/nuxt-modular?type=peer)
-
-[![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cknow/nuxt-modular.svg)](http://isitmaintained.com/project/cknow/nuxt-modular)
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/cknow/nuxt-modular.svg)](http://isitmaintained.com/project/cknow/nuxt-modular)
-[![Gitter](https://badges.gitter.im/cknow/nuxt-modular.svg)](https://gitter.im/cknow/nuxt-modular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-> Nuxt modular management
+## Description
+This package is maintain from cknow/nuxt-modular
 
 ## Install
 
 ```bash
-npm install --save @cknow/nuxt-modular
+npm install --save https://github.com/tupham9506/nuxt-modular
 ```
 
 Add `@cknow/nuxt-modular` to modules section of `nuxt.config.js`:
@@ -45,24 +24,94 @@ This module allows you to build your app in modules.
 By default the folders within `modular` will be considered modules and within each module you can use the same root structure, that is, your module can contain
 `layouts`, `middleware`, `plugins`, `pages`, `static`, `store`.
 
-Ex:
 
+## Structure
 ```bash
-modular
-    example1
-        pages
-            index.vue
-    example2
-        pages
-            index.vue
-pages
-    index.vue
+Nuxt-project
+├──  assets                         #  Nuxt folder
+├──  ...                            
+├── modular                         # Nuxt-modular directory
+    ├── <module>                    # Module folder (ex: admin, web...)
+        ├── assets                  # Asset folder of <module> 
+        ├── components              # Component folder
+        ├── layouts                 # Layout folder
+        ├── middleware              # middleware folder
+        ├── pages                   # Page folder
+        ├── plugins                 # Plugin folder
+        ├── static                  # Static folder
+        ├── store                   # Store folder
+        ├── modular.config.js       # Config for <module> 
+└── ...
+```
+### Global config
+All folder outside `modular` folder to config for all modules.
+
+### modular
+Main muxt-module directory, it contain all module.
+
+### <module>   
+Each module has a namespace. Folder name is also namespace of module.
+
+### assets
+This folder contain resources of module.
+
+### components
+All components of module in here.
+
+### layout
+Layout of module. To use, we need add namespace to prefix. `<namspace>/<layout>`
+Example:
+Layout path `Nuxt-project/modular/admin/layouts/index.vue`
+In `Nuxt-project/modular/admin/pages/index.vue`:
+```
+export default {
+    layout: 'admin/index',
+    data () {
+    }
+}
 ```
 
-You should be able to access this:
+### middleware
+To use: `<namspace>/<middleware>`
 
-```bash
-/ -> pages/index.vue
-/example1 -> modular/example1/pages/index.vue
-/example2 -> modular/example2/pages/index.vue
+### pages
+This will generate route.
+Example:
 ```
+Url             =>          File path
+/               =>          `Nuxt-project/pages/index.vue`
+/blog           =>          `Nuxt-project/pages/blog.vue`
+/admin          =>          `Nuxt-project/modular/admin/pages/index.vue`
+/admin/login    =>          `Nuxt-project/modular/admin/pages/login.vue`
+```
+### plugins
+This contain plugins of module.
+
+### static
+Static folder of module.
+
+### store
+To use, `Nuxt-project/store` must have `index.js`.`Nuxt-project/modular/<module>/store/index` will become a store module(`store.state.<module>`).
+Example:
+```
+Nuxt-project/store/index.js                 =>  store.state
+Nuxt-project/modular/admin/store/index.js   =>  store.state.admin
+Nuxt-project/modular/admin/store/user.js    =>  store.state.admin.user
+Nuxt-project/modular/admin/store/web.js     =>  store.state.admin.web
+```
+### modular.config.js
+Same nuxt.config.js, we can config for module
+Example:
+```
+export default {
+    plugin: [
+        'modular/admin/plugins/i18n.js'
+    ]
+}
+```
+
+# Updating....
+
+
+
+
