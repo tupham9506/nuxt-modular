@@ -23,6 +23,12 @@ export default ({ store }) => {
             name = '';
         }
 
-        store.registerModule('<%= options.namespace %>' + (name ? `/${name}` : ''), getModule(filename));
+        // #4 Store module
+        let storePath = ['<%= options.namespace %>'];
+        if(name) {
+          storePath.push(name);
+        }
+
+        store.registerModule(storePath, getModule(filename));
     }
 };
