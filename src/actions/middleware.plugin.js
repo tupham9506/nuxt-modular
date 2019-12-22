@@ -1,7 +1,11 @@
 import middleware from './middleware';
 
-const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
-const files = require.context('@/<%= options.dir %>', false, regexFiles);
+// const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
+const files = require.context(
+    '@/<%= options.dir %>',
+    false,
+    /^\.\/(?!<%= option.ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u
+);
 const filenames = files.keys();
 
 function getModule(filename) {

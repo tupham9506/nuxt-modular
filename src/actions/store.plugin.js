@@ -1,5 +1,9 @@
-const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
-const files = require.context('@/<%= options.dir %>', true, regexFiles);
+// const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
+const files = require.context(
+    '@/<%= options.dir %>',
+    true,
+    /^\.\/(?!<%= option.ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u
+);
 const filenames = files.keys();
 
 function getModule(filename) {
