@@ -2,7 +2,7 @@
 const files = require.context(
     '@/<%= options.dir %>',
     true,
-    /^\.\/(?!<%= option.ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u
+    /^\.\/(?!<%= options.ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u
 );
 const filenames = files.keys();
 
