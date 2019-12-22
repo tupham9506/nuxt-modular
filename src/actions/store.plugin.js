@@ -1,4 +1,3 @@
-// const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
 const files = require.context(
     '@/<%= options.dir %>',
     true,

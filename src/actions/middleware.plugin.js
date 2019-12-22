@@ -1,6 +1,5 @@
 import middleware from './middleware';
 
-// const regexFiles = /^\.\/(?!<%= ignorePrefix %>)[^.]+\.(<%= extensions %>)$/u;
 const files = require.context(
     '@/<%= options.dir %>',
     false,
