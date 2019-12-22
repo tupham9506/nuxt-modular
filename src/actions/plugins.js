@@ -1,3 +1,4 @@
+import { removeSpecialCharacterInPath } from '../core/utils';
 export default class Plugins {
     static run(modular) {
         if (!Array.isArray(modular.options.plugins)) {
@@ -9,8 +10,9 @@ export default class Plugins {
 
             return;
         }
-
         modular.options.plugins.forEach(plugin => {
+            // #1 Replace special character before add plugin
+            plugin = removeSpecialCharacterInPath(plugin);
             modular.moduleContainer.addPlugin(plugin);
         });
     }

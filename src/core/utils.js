@@ -25,9 +25,27 @@ function isFile(path) {
     return false;
 }
 
+/**
+ * #1
+ * Remove ~/ and @/ of path
+ * @param  {Object|String} path [description]
+ * @return {Object|String}      [description]
+ */
+function removeSpecialCharacterInPath(path) {
+    const replaceRegex = /^(\~\/|\@\/)/;
+    if (typeof path === 'object' && path.src) {
+        path.src = path.src.replace(replaceRegex, '');
+    }
+    if(typeof path === 'string') {
+        path = path.replace(replaceRegex, '');
+    }
+    return path;
+}
+
 export {
     getDirectories,
     isDirectory,
     isFile,
-    sequence
+    sequence,
+    removeSpecialCharacterInPath
 };
